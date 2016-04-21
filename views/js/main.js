@@ -489,8 +489,9 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
   console.log("Average time to generate last 10 frames: " + sum / 10 + "ms");
 }
 
-var isAnimating = false;
+var isAnimating = false; // used by animPizzas and updatePositions to indicate animation
 
+// called by scroll event listener to trigger updatePositions each frame
 function animPizzas() {
   if (isAnimating) {
     requestAnimationFrame(updatePositions);
@@ -525,7 +526,7 @@ function updatePositions() {
   }
 }
 
-// runs updatePositions on scroll
+// runs animPizzas on scroll
 window.addEventListener('scroll', animPizzas);
 
 // Generates the sliding pizzas when the page loads.
