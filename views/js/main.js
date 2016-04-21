@@ -428,6 +428,7 @@ var resizePizzas = function(size) {
       numPizzas = pizzaContainers.length;
 
     if (!numPizzas) {
+      console.log("no pizzas to resize");
       return;
     }
 
@@ -497,11 +498,9 @@ function updatePositions() {
   window.performance.mark("mark_start_frame");
 
   var items = document.querySelectorAll('.mover'),
-    length = items.length,
-    q = (document.body.scrollTop / 1250),
-    i;
+    q = (document.body.scrollTop / 1250);
 
-  for (i = 0; i < length; i++) {
+  for (var i = 0; i < items.length; i++) {
     var phase = Math.sin(q + (i % 5));
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
