@@ -507,16 +507,16 @@ function animPizzas() {
 
 // Moves the sliding background pizzas based on scroll position
 function updatePositions() {
-  // indicate animation for animPizzas()
-  isAnimating = true;
+  isAnimating = true; // indicate animation for animPizzas()
   frame++;
   window.performance.mark("mark_start_frame");
 
   var items = document.getElementsByClassName('mover'),
-    q = (document.body.scrollTop / 1250); // precalculate scroll offset
+    q = (document.body.scrollTop / 1250), // precalculate scroll offset
+    phase;
 
   for (var i = 0; i < items.length; i++) {
-    var phase = Math.sin(q + (i % 5));
+    phase = Math.sin(q + (i % 5));
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
 
