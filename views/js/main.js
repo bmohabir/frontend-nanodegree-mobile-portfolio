@@ -373,6 +373,7 @@ var pizzaElementGenerator = function(i) {
   pizzaDescriptionContainer = document.createElement("div");
 
   pizzaContainer.classList.add("randomPizzaContainer");
+  // moved styles to styles.css
   pizzaContainer.id = "pizza" + i;                // gives each pizza element a unique id
   pizzaImageContainer.classList.add("col-md-6");
 
@@ -425,11 +426,13 @@ var resizePizzas = function(size) {
     var pizzaContainers = document.getElementsByClassName("randomPizzaContainer");
       numPizzas = pizzaContainers.length;
 
+    // only proceed if there is work to do
     if (!numPizzas) {
       console.log("no pizzas to resize");
       return;
     }
 
+    // taken from original determineDx function and adapted to remove unnecessary math
     function sizeSwitcher (size) {
       switch(size) {
         case "1":
@@ -445,6 +448,7 @@ var resizePizzas = function(size) {
 
     var newWidth = sizeSwitcher(size);
 
+    // removed unnecessary calculations and use loop to batch style updates
     for (var i = 0; i < numPizzas; i++) {
       pizzaContainers[i].style.width = newWidth;
     }
@@ -490,6 +494,7 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 var isAnimating = false; // used by animPizzas and updatePositions to indicate animation
 
 // called by scroll event listener to trigger updatePositions each frame
+// reduces page scroll freezing when framerate dips
 function animPizzas() {
   if (isAnimating) {
     requestAnimationFrame(updatePositions);
@@ -502,12 +507,13 @@ function animPizzas() {
 
 // Moves the sliding background pizzas based on scroll position
 function updatePositions() {
+  // indicate animation for animPizzas()
   isAnimating = true;
   frame++;
   window.performance.mark("mark_start_frame");
 
   var items = document.getElementsByClassName('mover'),
-    q = (document.body.scrollTop / 1250);
+    q = (document.body.scrollTop / 1250); // precalculate scroll offset
 
   for (var i = 0; i < items.length; i++) {
     var phase = Math.sin(q + (i % 5));
