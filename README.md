@@ -12,6 +12,7 @@ To view the website, download the repository and run the webserver of your choic
  * move calculations that are unaffected by iterator outside of `for` loop and into variables in `updatePositions()`
  * trigger `requestAnimationFrame()` using scroll events to call `updatePositions()` to reduce frame timing negatively affecting scroll performance
  * use separate PNG graphics for background pizzas to reduce resize overhead
+ * move width and height setting of pizza movers out of loop and into `style.css` (replacing original bad height property)
  * see comments in `main.js` for more info
 
 #### pizza.html
