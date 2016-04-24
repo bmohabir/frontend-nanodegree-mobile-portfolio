@@ -405,13 +405,13 @@ var resizePizzas = function(size) {
   function changeSliderLabel(size) {
     switch(size) {
       case "1":
-        document.querySelector("#pizzaSize").innerHTML = "Small";
+        document.getElementById("pizzaSize").innerHTML = "Small";
         return;
       case "2":
-        document.querySelector("#pizzaSize").innerHTML = "Medium";
+        document.getElementById("pizzaSize").innerHTML = "Medium";
         return;
       case "3":
-        document.querySelector("#pizzaSize").innerHTML = "Large";
+        document.getElementById("pizzaSize").innerHTML = "Large";
         return;
       default:
         console.log("bug in changeSliderLabel");
@@ -535,16 +535,27 @@ window.addEventListener('scroll', animPizzas);
 
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
-  var cols = 8;
-  var s = 256;
-  for (var i = 0; i < 200; i++) {
-    var elem = document.createElement('img');
+  var cols = 8,
+    s = 256,
+    rows, maxSize, numMovers, elem;
+
+  // get screen dimensions to cover up to max viewport size
+  // (we'll ignore unusual cases for now like spanning multiple screens)
+  var screenY = screen.height,
+    screenX = screen.width;
+
+  maxSize = screenY > screenX ? screenY : screenX; // use the larger dimension in case screen is rotated after page load
+  rows = Math.ceil(maxSize / s); // calculate number of rows needed
+  numMovers = cols * rows; // total number of movers we need to generate
+
+  for (var i = 0; i < numMovers; i++) {
+    elem = document.createElement('img');
     elem.className = 'mover';
-    elem.src = "images/pizza3.png"; // use properly sized image
+    elem.src = "images/pizza3.png"; // use properly sized image to avoid resize overhead
     // moved unnecessary styles from loop to .mover class in styles.css
     elem.basicLeft = (i % cols) * s;
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
-    document.querySelector("#movingPizzas1").appendChild(elem);
+    document.getElementById("movingPizzas1").appendChild(elem);
   }
   updatePositions();
 });
